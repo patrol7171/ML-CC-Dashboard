@@ -1,1 +1,1 @@
-FLASK_APP=pce_analysis_v2/app/app.py flask run
+FLASK_APP=mlcc_dashboard/app/app.py flask run
