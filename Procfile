@@ -1,0 +1,1 @@
+web: gunicorn mlcc_dashboard.app:app
