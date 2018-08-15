@@ -134,8 +134,6 @@ $.fn.UseTooltip = function () {
 
 				var color = item.series.color;
 
-				//console.log(item.series.xaxis.ticks[x].label);                
-				
 				showTooltip(item.pageX,
 						item.pageY,
 						color,
