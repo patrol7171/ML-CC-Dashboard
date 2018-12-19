@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import plotly.plotly as py
 import plotly.graph_objs as go
 import sqlalchemy
-from sqlalchemy import create_engine, MetaData, inspect
+from sqlalchemy import create_engine, MetaData, inspect, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Text, Float
 from sqlalchemy.sql import text
@@ -18,6 +18,8 @@ import json
 from datetime import datetime
 from dateutil.parser import parse
 from flask_sqlalchemy import SQLAlchemy
+from collections import defaultdict, ChainMap, OrderedDict
+import ast
 
 
 #################################################
@@ -54,69 +56,127 @@ class Disasters(db.Model):
 def setup():
     db.create_all()
 
+	
 #################################################
 # Flask Routes
 #################################################
 
 @app.route("/")
-def home():
-    """Render Home Page."""
-    return render_template("index.html")
+def index():
+    """Render Home Page"""
+    query_statement = "Select * from US_Disasters"
+    df = pd.read_sql_query(query_statement, db.session.bind)
+    df['Years'] = df.apply(year_range, axis=1)
+    df1 = df.copy()
+    df2 = df.copy()
+    df3C = df.copy()
+    df3D = df.copy()
+	
+    df1['Cost_Sum_Totals'] = df1.groupby(['Years','Disaster'])['Total_CPI_Adjusted_Cost_Millions'].transform(sum)
+    df1.Cost_Sum_Totals = df1.Cost_Sum_Totals.round()
+    df1.drop(['id', 'BeginDate', 'EndDate', 'Total_CPI_Adjusted_Cost_Millions', 'Deaths', 'Name'], axis=1, inplace=True)
+    df1 = df1.drop_duplicates(subset=['Disaster','Cost_Sum_Totals'])
+    newdf1 = df1.set_index(['Years'], inplace=False)
+    costData = []
+    for item, group in newdf1.groupby(level=0):
+        d = dict(zip(newdf1.index.names, [item]))
+        d['event'] = dict(zip(group['Disaster'], group['Cost_Sum_Totals']))
+        costData.append(d)
+
+    df2['Death_Sum_Totals'] = df2.groupby(['Years','Disaster'])['Deaths'].transform(sum)
+    df2.drop(['id', 'BeginDate', 'EndDate', 'Total_CPI_Adjusted_Cost_Millions', 'Deaths', 'Name'], axis=1, inplace=True)
+    df2 = df2.drop_duplicates(subset=['Disaster','Death_Sum_Totals'])
+    newdf2 = df2.set_index(['Years'], inplace=False)
+    deathData = []
+    for item, group in newdf2.groupby(level=0):
+        d = dict(zip(newdf2.index.names, [item]))
+        d['event'] = dict(zip(group['Disaster'], group['Death_Sum_Totals']))
+        deathData.append(d)
+	
+    df3C.drop(['id', 'Disaster', 'BeginDate', 'EndDate', 'Deaths', 'Years'], axis=1, inplace=True)
+    df3C.Total_CPI_Adjusted_Cost_Millions = df.Total_CPI_Adjusted_Cost_Millions.round()
+    df3C = df3C.nlargest(10, 'Total_CPI_Adjusted_Cost_Millions')
+    df3C.columns = ['label', 'value']
+    dataOpt1 = df3C.to_dict(orient='records')
+
+    df3D.drop(['id', 'Disaster', 'BeginDate', 'EndDate', 'Total_CPI_Adjusted_Cost_Millions', 'Years'], axis=1, inplace=True)
+    df3D = df3D.nlargest(10, 'Deaths')
+    df3D.columns = ['label', 'value']
+    dataOpt2 = df3D.to_dict(orient='records')
+		
+    return render_template("index.html", data=(costData,deathData,dataOpt1,dataOpt2))
+    # return render_template("index.html", data=(costData,deathData))
+
+	
+	
+@app.route("/about")
+def about():
+	"""Render About Page"""
+	return render_template("about.html")
+	
+
+	
+@app.route("/references")
+def references():
+	"""Render References Page"""
+	return render_template("references.html")
+
+	
+
+@app.route("/faq")
+def faq():
+	"""Render FAQ Page"""
+	return render_template("faq.html")	
+	
+	
+	
+# @app.route("/Deaths")
+# def death_data():
+    # """Return top 10 most deadly"""
+    # query_statement = db.session.query(Disasters).order_by(Disasters.Deaths.desc()).limit(10).statement
+    # df = pd.read_sql_query(query_statement, db.session.bind)	
+    # plot_trace = {
+            # "x": df["Name"].values.tolist(),
+            # "y": df["Deaths"].values.tolist(),
+            # "type": "bar"
+    # }	
+    # return jsonify(plot_trace)
+
+	
+
+# @app.route("/Total_CPI_Adjusted_Cost_Millions")
+# def cost_data():
+    # """Return top 10 highest cost"""
+    # query_statement = db.session.query(Disasters).order_by(Disasters.Total_CPI_Adjusted_Cost_Millions.desc()).limit(10).statement
+    # df = pd.read_sql_query(query_statement, db.session.bind)	
+    # plot_trace = {
+            # "x": df["Name"].values.tolist(),
+            # "y": df["Total_CPI_Adjusted_Cost_Millions"].values.tolist(),
+            # "type": "bar"
+    # }
+    # return jsonify(plot_trace)
+	
 
 
-
-@app.route("/tables")
-def tables():
-	 # """Render Sample Tables page"""
-	return render_template("table.html")
-
-
-@app.route("/charts")
-def charts():
-	 # """Render Sample Charts Page"""
-	return render_template("charts.html")
-
-
-
-@app.route("/Deaths")
-def death_data():
-    """Return top 25 most deadly"""
-    query_statement = db.session.query(Disasters).order_by(Disasters.Deaths.desc()).limit(10).statement
-    df = pd.read_sql_query(query_statement, db.session.bind)	
-    plot_trace = {
-            "x": df["Name"].values.tolist(),
-            "y": df["Deaths"].values.tolist(),
-            "type": "bar"
-    }
-    return jsonify(plot_trace)
-
-
-@app.route("/Total_CPI_Adjusted_Cost_Millions")
-def cost_data():
-    """Return top 25 highest cost"""
-    query_statement = db.session.query(Disasters).order_by(Disasters.Total_CPI_Adjusted_Cost_Millions.desc()).limit(10).statement
-    df = pd.read_sql_query(query_statement, db.session.bind)	
-    plot_trace = {
-            "x": df["Name"].values.tolist(),
-            "y": df["Total_CPI_Adjusted_Cost_Millions"].values.tolist(),
-            "type": "bar"
-    }
-    return jsonify(plot_trace)
-
-
-
-# @app.route("/Disaster")
-# def all_data():
-#     """Return events by disaster"""
-#     query_statement = db.session.query(Disasters).filter_by(Disasters.Disaster='Severe Storm').statement
-#     df = pd.read_sql_query(query_statement, db.session.bind)	
-#     plot_trace = {
-#             "x": df["Disaster"].values.tolist(),
-#             "y": df["Total_CPI_Adjusted_Cost_Millions"].values.tolist(),
-#             "type": "bar"
-#     }
-#     return jsonify(plot_trace)
-
+def year_range (row):
+    if (row['EndDate'] > 19799999) & (row['EndDate'] < 19850000):	
+        return "1980-1984"
+    if (row['EndDate'] > 19849999) & (row['EndDate'] < 19900000):
+        return "1985-1989"
+    if (row['EndDate'] > 19899999) & (row['EndDate'] < 19950000):
+        return "1990-1994"
+    if (row['EndDate'] > 19949999) & (row['EndDate'] < 20000000):
+        return "1995-1999"
+    if (row['EndDate'] > 19999999) & (row['EndDate'] < 20050000):
+        return "2000-2004"
+    if (row['EndDate'] > 20049999) & (row['EndDate'] < 20100000):
+        return "2005-2009"
+    if (row['EndDate'] > 20099999) & (row['EndDate'] < 20150000):
+        return "2010-2014"	  
+    return "2015-2018"	
+	
+	
+	
 	
 if __name__ == '__main__':
     app.run(debug=True)

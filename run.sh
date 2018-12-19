@@ -1,1 +1,1 @@
-FLASK_APP=mlcc_dashboard/app/app.py flask run
+FLASK_APP=mlcc_dashboard/app.py flask run
