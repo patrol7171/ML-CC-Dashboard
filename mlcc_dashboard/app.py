@@ -46,16 +46,10 @@ class Disasters(db.Model):
     Total_CPI_Adjusted_Cost_Millions = db.Column(db.Float)
     Deaths = db.Column(db.Integer)
 
-    def __repr__(self):
-        return '<US_Disasters %r>' % (self.name)
-
-
-# Create database tables
-@app.before_first_request
-def setup():
-    db.create_all()
-
+db.create_all()
+db.session.commit()
 	
+
 #################################################
 # Flask Routes
 #################################################
