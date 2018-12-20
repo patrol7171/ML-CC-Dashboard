@@ -105,7 +105,6 @@ def index():
     dataOpt2 = df3D.to_dict(orient='records')
 		
     return render_template("index.html", data=(costData,deathData,dataOpt1,dataOpt2))
-    # return render_template("index.html", data=(costData,deathData))
 
 	
 	
