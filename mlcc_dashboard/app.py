@@ -19,7 +19,6 @@ from datetime import datetime
 from dateutil.parser import parse
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict, ChainMap, OrderedDict
-import ast
 
 
 #################################################
