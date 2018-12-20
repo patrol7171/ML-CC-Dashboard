@@ -126,35 +126,6 @@ def faq():
 	"""Render FAQ Page"""
 	return render_template("faq.html")	
 	
-	
-	
-# @app.route("/Deaths")
-# def death_data():
-    # """Return top 10 most deadly"""
-    # query_statement = db.session.query(Disasters).order_by(Disasters.Deaths.desc()).limit(10).statement
-    # df = pd.read_sql_query(query_statement, db.session.bind)	
-    # plot_trace = {
-            # "x": df["Name"].values.tolist(),
-            # "y": df["Deaths"].values.tolist(),
-            # "type": "bar"
-    # }	
-    # return jsonify(plot_trace)
-
-	
-
-# @app.route("/Total_CPI_Adjusted_Cost_Millions")
-# def cost_data():
-    # """Return top 10 highest cost"""
-    # query_statement = db.session.query(Disasters).order_by(Disasters.Total_CPI_Adjusted_Cost_Millions.desc()).limit(10).statement
-    # df = pd.read_sql_query(query_statement, db.session.bind)	
-    # plot_trace = {
-            # "x": df["Name"].values.tolist(),
-            # "y": df["Total_CPI_Adjusted_Cost_Millions"].values.tolist(),
-            # "type": "bar"
-    # }
-    # return jsonify(plot_trace)
-	
-
 
 def year_range (row):
     if (row['EndDate'] > 19799999) & (row['EndDate'] < 19850000):	
