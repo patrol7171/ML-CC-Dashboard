@@ -31,7 +31,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #################################################
 # Database Setup
 #################################################
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///Global_Land_Temps.sqlite"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///Global_Land_Temps.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Global_Land_Temps.sqlite"
 db = SQLAlchemy(app)
 
 
