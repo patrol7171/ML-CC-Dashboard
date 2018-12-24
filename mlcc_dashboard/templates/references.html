@@ -1,25 +1,28 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="">
-		<meta name="robots" content="all,follow">
-		<title>Machine Learning & Climate Change</title>		
-		<link rel="shortcut icon" href="../static/img/favicon.PNG">
-         <!-- Bootstrap CSS CDN -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!-- Font Awesome CSS-->
-		<link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
-		<!-- Fontastic Custom icon font-->
-		<link rel="stylesheet" href="../static/css/fontastic.css">
-        <!-- Dashboard CSS -->
-        <link rel="stylesheet" href="../static/css/style_custom.css">		
-		<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
-		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
-    </head>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="robots" content="all,follow">
+	
+
+	<title>Machine Learning & Climate Change</title>		
+	<link rel="shortcut icon" href="../static/img/favicon.PNG">
+	 <!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Font Awesome CSS-->
+	<link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+	<!-- Fontastic Custom icon font-->
+	<link rel="stylesheet" href="../static/css/fontastic.css">
+	<!-- Dashboard CSS -->
+	<link rel="stylesheet" href="../static/css/style_custom.css">		
+	<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
+</head>
 
 <body>
 	<div class="wrapper">
@@ -79,56 +82,23 @@
                     </div>
                 </nav>
 				
-                <h2>Weather-Related Disasters to Affect the U.S. From 1980 to 2018</h2>
-                <p>Data was obtained from NOAA's website and represents January 1980 through June 2018</p>
+                <h2>References</h2>				
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="panel panel-default">
-						<div class="panel-heading">Total CPI Adjusted Cost in Millions <i>(Hover over parts of each graph for a further breakdown)</i></div>
-						<div class="panel-body">
-							<div id='chartset'>
-								<svg id='barsvg'></svg><svg id='piesvg'></svg>
-							</div>
-						</div>	
+						<div class="panel panel-default">						
+							<div class="panel-body">							
+								<ol>
+									<li><p>E.Balagurusamy, <cite>Programming with JAVA: A Primer</cite>, 3rd edition, (2007)</p></li>
+									<li><p>Reto Meier, <cite>Professional Android 4 Application Development</cite>, 3rd edition, (2012)</p></li>
+								</ol>								
+							</div>	
 						</div>
 					</div>
 			    </div>
-				<!-- <div class="line"></div> -->
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="panel panel-default">
-						<div class="panel-heading">Total Death Toll By Weather-Related Disaster</div>
-						<div class="panel-body">
-							<div id='graph2'>
-								<svg id='svg2' width='900' height='375'></svg>
-							</div>
-						</div>	
-						</div>
-					</div>
-			    </div>
-				<!-- <div class="line"></div> -->				
-			    <div class="row">
-				  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="panel panel-default">
-					<div class="panel-heading">Top 10 Costliest & Deadliest Weather-Related Disasters</div>
-						<div class="panel-body">
-							<div id='graph3'>
-								<form>
-									<label><input type="radio" name="dataset" id="dataset" value="option1"> Top 10 Costliest (CPI Adjusted Cost in Millions)</label>
-									<br>
-									<label><input type="radio" name="dataset" id="dataset" value="option2"> Top 10 Deadliest</label>
-								</form>
-								<svg id='svg3' width='900' height='375'></svg>
-							</div>
-						</div>
-					</div>
-				  </div>					 
-			    </div>				
-				
-		     </div>
+			  </div>
 		   <!-- End Content Holder -->
 	 </div> 
-		
+	 
 	<footer class="container-fluid text-center">
 	  <div class="row">
 		<div class="col-sm-6">
@@ -146,16 +116,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<script>
-		var allData = {{ data | tojson }};
-		
-		var cData = allData[0];
-		var dData = allData[1];
-		var top10CData = allData[2];
-		var top10DData = allData[3];
 
-		chartSet('#chartset',cData);
-		graph2('#graph2',dData);
-		graph3('#graph3',top10CData,top10DData);
 	
 		$(document).ready(function () {
 		 $('#sidebarCollapse').on('click', function () {

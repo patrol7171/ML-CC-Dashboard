@@ -102,10 +102,24 @@ def index():
 
 	
 	
-@app.route("/about")
-def about():
-	"""Render About Page"""
-	return render_template("about.html")
+@app.route("/about1")
+def about1():
+	"""Render About Sub Page1"""
+	return render_template("about1.html")
+
+
+	
+@app.route("/about2")
+def about2():
+	"""Render About Sub Page2"""
+	return render_template("about2.html")
+	
+
+	
+@app.route("/glossary")
+def glossary():
+	"""Render Glossary Page"""
+	return render_template("glossary.html")	
 	
 
 	
@@ -114,12 +128,6 @@ def references():
 	"""Render References Page"""
 	return render_template("references.html")
 
-	
-
-@app.route("/faq")
-def faq():
-	"""Render FAQ Page"""
-	return render_template("faq.html")	
 	
 
 def year_range (row):

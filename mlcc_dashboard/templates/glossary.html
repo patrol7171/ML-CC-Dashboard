@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="robots" content="all,follow">
+	
+	<style>
+		span.letterLinkSpan {
+		display: inline-block;
+		}
+		span.letterLinkSpan>a.letterLink {
+			display: inline-block;
+			width: 1.1em;
+			text-align: center;
+			padding: 0.2em;
+			font-size: medium;
+			color: #000000;
+			background-color: #BBCCFF;
+		}
+
+		span.letterLinkSpan>a.letterLink.entriesPresent {
+			font-weight: bold;
+		}
+		span.letterLinkSpan>a.letterLink.entriesAbsent {
+			font-weight: normal;
+			color: #FFEEEE;
+		}
+		span.letterLinkSpan>a.letterLink:hover {
+			background-color: #DDDDFF;
+		}
+	</style>
+
+	<title>Machine Learning & Climate Change</title>		
+	<link rel="shortcut icon" href="../static/img/favicon.PNG">
+	 <!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Font Awesome CSS-->
+	<link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+	<!-- Fontastic Custom icon font-->
+	<link rel="stylesheet" href="../static/css/fontastic.css">
+	<!-- Dashboard CSS -->
+	<link rel="stylesheet" href="../static/css/style_custom.css">		
+	<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h4>Data Masters, Inc.</h4>
+                    <strong>DM</strong>
+                </div>
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="{{url_for('index')}}">
+                            <i class="glyphicon glyphicon-home"></i>
+                            My Dashboard 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="glyphicon glyphicon-duplicate"></i>
+                            Project Info
+                        </a>
+						<ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li><a href="{{url_for('about1')}}" target='_blank'>National</a></li>
+                            <li><a href="{{url_for('about2')}}" target='_blank'>Local</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{url_for('glossary')}}">
+                            <i class="glyphicon glyphicon-link"></i>
+                            Glossary
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('references')}}">
+                            <i class="glyphicon glyphicon-paperclip"></i>
+                            References
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar Holder -->
+            <!-- Start Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+							</ul>
+                        </div>
+                    </div>
+                </nav>
+				
+                <h2>Glossary</h2>				
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="panel panel-default">						
+							<div class="panel-body">
+								<div id="quicklinks"></div>
+								<h4>Terms:</h4></br>
+								<dl class="glossary"> <a name="Bobcat">
+									<dt>Bobcat</dt>
+										<dd>A medium-sized, furry mammal that can eat children.</dd>
+									<a name="Cat">
+									</br>
+									<dt>Cat</dt>
+										<dd>A small, furry mammal that meows.</dd>
+									<a name="Dog">
+									</br>
+									<dt>Dog</dt>
+										<dd>A small, furry mammal that barks.</dd>
+									<a name="Fish">
+									</br>
+									<dt>Fish</dt>
+										<dd>A scaly aquatic animal that swims in water.</dd>
+									<a name="Flamingo">
+									</br>
+									<dt>Flamingo</dt>
+										<dd>A pink bird.</dd>
+									<a name="Gnat">
+									</br>
+									<dt>Gnat</dt>
+										<dd>A small flying insect.</dd>
+									<a name="Llama">
+									</br>
+									<dt>Llama</dt>
+										<dd>A shaggy-haired beast of burden with a long neck.</dd>
+									<a name="Mouse">
+									</br>
+									<dt>Mouse</dt>
+										<dd>A tiny mammal.</dd>
+									<a name="Quail">
+									</br>
+									<dt>Quail</dt>
+										<dd>A small bird.</dd>
+									<a name="Rhino">
+									</br>
+									<dt>Rhino</dt>
+										<dd>A scaly mammal.</dd>
+									<a name="Swan">
+									</br>
+									<dt>Swan</dt>
+										<dd>A white bird.</dd>
+									<a name="Toucan">
+									</br>
+									<dt>Toucan</dt>
+										<dd>A colorful bird.</dd>
+									<a name="Whale">
+									</br>
+									<dt>Whale</dt>
+										<dd>A huge aquatic mammal.</dd>
+									<a name="Yak">
+									</br>
+									<dt>Yak</dt>
+										<dd>A shaggy-haired beast of burden.</dd>
+									<a name="Zebra">
+									</br>
+									<dt>Zebra</dt>
+										<dd>Sort of a horse with white/black stripes.</dd>
+								</dl>
+							</div>	
+						</div>
+					</div>
+			    </div>
+		     </div>
+		   <!-- End Content Holder -->
+	 </div> 
+	 
+	<footer class="container-fluid text-center">
+	  <div class="row">
+		<div class="col-sm-6">
+		  <p>Data Masters, Inc &copy; 2018</p>
+		</div>
+		<div class="col-sm-6">
+		  <p>Designed by <a href="https://patrol7171.github.io" class="external">P. Rollins</a></p>
+		</div>
+	  </div>
+	</footer>  	
+		
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<!-- Bootstrap JS CDN -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		var terms = $("dl.glossary dt").sort();
+		var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		
+		for (var i = 0; i < letters.length; i++) {
+			var nextChar = letters.charAt(i);
+			// Need to find first of each letter
+			var foundOne = -999;
+			for (var j = 0; j < terms.length; j++) {
+				var termj = terms[j].innerText;
+				var termJJ = termj.toUpperCase();
+				if (termJJ.charAt(0) == nextChar) {
+					foundOne = j;
+					break;
+				}
+			}
+
+			// Create links and anchors based on whether something was found
+			if (foundOne == -999) {
+				// Create a new letterLink (with class "entriesAbsent")
+				newLetterLink = "<span class=\"letterLinkSpan\"><a class=\"letterLink entriesAbsent\">" + nextChar + "</a></span>";
+			} else {
+				// Create a new letterLink (with class "entriesPresent")
+				newLetterLink = "<span class=\"letterLinkSpan\"><a class=\"letterLink entriesPresent\" href=\"#" + nextChar + "\">" + nextChar + "</a></span>";
+				// Create an anchor for the letterLink BEFORE the first glossary term starting with that letter
+				$("<a class=\"letterAnchor\" name=\"" + nextChar + "\">").insertBefore(terms[foundOne]);
+			}
+			// Either way, add the letterLink to the list of letterLinks
+			$("div#quicklinks").append(newLetterLink);
+		}
+	
+	
+		$(document).ready(function () {
+		 $('#sidebarCollapse').on('click', function () {
+			 $('#sidebar').toggleClass('active');
+		 });
+		});				
+	</script>
+</body>
+
+</html>
