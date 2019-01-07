@@ -33,8 +33,8 @@ from aerisweather.responses.ObservationsResponse import ObservationsResponse
 from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
 from aerisweather.requests.Endpoint import Endpoint, EndpointType
 from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['client_id'], os.environ['client_secret'], os.environ['app_id'])
-# from APIkeys import client_id, client_secret, app_id
+s3 = S3Connection(os.environ['client_id'], os.environ['client_secret'])
+# from APIkeys import client_id, client_secret
 
 
 
@@ -85,7 +85,7 @@ db.session.commit()
 @app.route("/")
 def index():
 	"""Render Home Page"""
-	aeris = AerisWeather(client_id=client_id, client_secret=client_secret, app_id=app_id)
+	aeris = AerisWeather(client_id=client_id, client_secret=client_secret, app_id="com.aerisweather.pythonsdkdemo")
 	loc = RequestLocation(city="charlotte", state="nc")
 	obs_dict = {}	
 	global aerisTemp
