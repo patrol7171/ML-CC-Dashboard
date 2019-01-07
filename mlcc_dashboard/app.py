@@ -33,6 +33,7 @@ from aerisweather.responses.ObservationsResponse import ObservationsResponse
 from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
 from aerisweather.requests.Endpoint import Endpoint, EndpointType
 
+#######FOR LOCAL DEPLOYMENT########:
 # from APIkeys import client_id, client_secret
 # client_id = client_id
 # client_secret = client_secret
