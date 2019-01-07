@@ -33,7 +33,7 @@ from aerisweather.responses.ObservationsResponse import ObservationsResponse
 from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
 from aerisweather.requests.Endpoint import Endpoint, EndpointType
 from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['client_id'], os.environ['client_secret'], os.environ['app_id')
+s3 = S3Connection(os.environ['client_id'], os.environ['client_secret'], os.environ['app_id'])
 # from APIkeys import client_id, client_secret, app_id
 
 
