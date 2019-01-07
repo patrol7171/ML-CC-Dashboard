@@ -81,12 +81,15 @@ db.session.commit()
 
 
 #################################################
-# API Config
+# Aeris Weather API Config
 #################################################
-client_id = os.environ.get('client_id')
-client_secret = os.environ.get('client_secret')
+# client_id = os.environ.get('client_id')
+# client_secret = os.environ.get('client_secret')
 app_id="com.aerisweather.pythonsdkdemo"
 
+########  FOR TESTING & LOCAL DEPLOY ONLY ##########
+client_id = "auufJLsp9vuvh5GzPT30w"
+client_secret = "mEPrGwuNvGYK5OwYrZLXb1HwdOUFAZEd2TsvihJ2" 
 	
 
 #################################################
