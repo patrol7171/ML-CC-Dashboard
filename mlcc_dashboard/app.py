@@ -22,6 +22,7 @@ from dateutil.parser import parse
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict, ChainMap, OrderedDict
 pd.options.mode.chained_assignment = None
+import humanize
 
 from aerisweather.aerisweather import AerisWeather
 from aerisweather.requests.ParameterType import ParameterType
