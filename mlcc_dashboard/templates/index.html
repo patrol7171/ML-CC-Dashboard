@@ -6,19 +6,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="">
 		<meta name="robots" content="all,follow">
-		<title>Machine Learning & Climate Change</title>		
-		<link rel="shortcut icon" href="../static/img/favicon.PNG">
+		<title>Machine Learning & Climate Change Project</title>		
+		<link rel="shortcut icon" href="../static/img/favicon.png">
          <!-- Bootstrap CSS CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!-- Font Awesome CSS-->
-		<link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+        <!-- JQuery CSS CDN -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
 		<!-- Fontastic Custom icon font-->
 		<link rel="stylesheet" href="../static/css/fontastic.css">
         <!-- Dashboard CSS -->
-        <link rel="stylesheet" href="../static/css/style_custom.css">		
-		<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
+        <link rel="stylesheet" href="../static/css/style_custom.css">
+		<!-- Other JS files -->
+		<script src="../static/js/mlcc_index.js" type="text/javascript"></script>				
 		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
+		<!-- Other CSS files -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.5/css/weather-icons.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css">				
     </head>
 
 <body>
@@ -30,29 +34,29 @@
                     <strong>DM</strong>
                 </div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
                         <a href="{{url_for('index')}}">
                             <i class="glyphicon glyphicon-home"></i>
-                            My Dashboard 
+                            Home 
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="glyphicon glyphicon-duplicate"></i>
                             Project Info
                         </a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="{{url_for('about1')}}" target='_blank'>National</a></li>
-                            <li><a href="{{url_for('about2')}}" target='_blank'>Local</a></li>
+                            <li><a href="{{url_for('about1')}}">National</a></li>
+                            <li><a href="{{url_for('about2')}}">Local</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
                         <a href="{{url_for('glossary')}}">
                             <i class="glyphicon glyphicon-link"></i>
                             Glossary
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
                         <a href="{{url_for('references')}}">
                             <i class="glyphicon glyphicon-paperclip"></i>
                             References
@@ -63,7 +67,6 @@
             <!-- End Sidebar Holder -->
             <!-- Start Page Content Holder -->
             <div id="content">
-
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -73,96 +76,201 @@
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 							</ul>
                         </div>
                     </div>
-                </nav>
-				
-                <h2>Weather-Related Disasters to Affect the U.S. From 1980 to 2018</h2>
-                <p>Data was obtained from NOAA's website and represents January 1980 through June 2018</p>
-				<div class="row">
+                </nav>			
+                <h4>My Dashboard</h4>
+                <div class="row-fluid" id="quote">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="panel panel-default panel-horizontal">
+						<div class="panel-heading">
+							<h2 class="panel-title"><i>Quote of the Day</i></h2>						
+						</div>
+							<div class="panel-body">
+								<div id="quoteInfo" class="text-center"></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid" id="user_locale">
+				  <div class="span12 text-center" id="location">
+					<span>					
+						<h3>Charlotte, NC</h3>
+						<h6><i>Powered by <a href="https://www.aerisweather.com/" target="_blank"><img src="../static/img/aeris_logo.png" alt="AerisWeather"></a> - Last observation made on <span id='timestamp'></span></i></h6>				
+					</span>
+				  </div>
+				</div>
+				<div class="row-fluid" id="weather_info">
+				  <div class="span12 text-center">
+					<div class="col-sm-3 col-md-3 col-lg-3">
+					  <div class="panel panel-primary panel-transparent text-center">
+						<div class="panel-body" id="weather">
+							<span>
+								<h1></h1> 
+								<h4>CURRENT WEATHER</h4><hr>
+								<h3></h3>
+							</span>
+						</div>
+					  </div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+					  <div class="panel panel-primary panel-transparent text-center">
+						<div class="panel-body" id="temp">
+							<span>
+								<h1><i class="wi wi-thermometer wi-4x"></i></h1>
+								<h4>CURRENT TEMPERATURE</h4><hr>
+								<h3></h3>              
+							</span>
+						</div>
+					  </div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+					  <div class="panel panel-primary panel-transparent text-center">
+						<div class="panel-body" id="humidity">
+							<span>
+								<h1><h1><i class="wi wi-humidity wi-4x"></i></h1></h1>
+								<h4>CURRENT HUMIDITY</h4><hr>
+								<h3></h3>              
+							</span>
+						</div>
+					  </div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+					  <div class="panel panel-primary panel-transparent text-center">
+						<div class="panel-body" id="precip">
+							<span>
+								<h1><h1><i class="wi wi-raindrops wi-4x"></i></h1></h1>
+								<h4>TOTAL PRECIPITATION</h4><hr>
+								<h3></h3>              
+							</span>
+						</div>
+					  </div>
+					</div>
+				  </div>				
+				</div>	
+				<div class="row-fluid">
+					<div class="col-sm-8 col-md-8 col-lg-8" id="graph-panel">
 						<div class="panel panel-default">
-						<div class="panel-heading">Total CPI Adjusted Cost in Millions <i>(Hover over parts of each graph for a further breakdown)</i></div>
-						<div class="panel-body">
-							<div id='chartset'>
-								<svg id='barsvg'></svg><svg id='piesvg'></svg>
-							</div>
-						</div>	
+							<div class="panel-heading">Top 10 Weather-Related Disasters to Affect the U.S. Since 1980</i></div>
+								<div class="panel-body">
+									<div id='piechart'>
+										<form>
+											<label><input type="radio" name="dataset" id="dataset" value="option1"> Top 10 Costliest Events (In Millions)</label>
+											&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+											<label><input type="radio" name="dataset" id="dataset" value="option2"> Top 10 Deadliest Events (# of Deaths)</label>
+										</form>
+										<svg id='svg1'></svg>
+									</div>
+								</div>
+							<div class="panel-footer text-right">
+								<a href="{{url_for('about1')}}">More Info</a>
+							</div>							
 						</div>
 					</div>
-			    </div>
-				<!-- <div class="line"></div> -->
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-sm-4 col-md-4 col-lg-4" id="graph-panel">
 						<div class="panel panel-default">
-						<div class="panel-heading">Total Death Toll By Weather-Related Disaster</div>
-						<div class="panel-body">
-							<div id='graph2'>
-								<svg id='svg2' width='900' height='375'></svg>
-							</div>
-						</div>	
+							<div class="panel-heading">Actual Temp vs. Forecast Temp</div>
+								<div class="panel-body">
+									<div id="power-gauge">
+										<br>
+										<p id="avgTemp">How good is our forecast model?...</p>
+										<!-- <svg id='svg2' viewBox="0 0 30 18" ></svg> -->
+									</div>
+								</div>
+							<div class="panel-footer text-right">
+								<a href="{{url_for('about2')}}">More Info</a>
+							</div>							
 						</div>
-					</div>
-			    </div>
-				<!-- <div class="line"></div> -->				
-			    <div class="row">
-				  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="panel panel-default">
-					<div class="panel-heading">Top 10 Costliest & Deadliest Weather-Related Disasters</div>
-						<div class="panel-body">
-							<div id='graph3'>
-								<form>
-									<label><input type="radio" name="dataset" id="dataset" value="option1"> Top 10 Costliest (CPI Adjusted Cost in Millions)</label>
-									<br>
-									<label><input type="radio" name="dataset" id="dataset" value="option2"> Top 10 Deadliest</label>
-								</form>
-								<svg id='svg3' width='900' height='375'></svg>
-							</div>
-						</div>
-					</div>
-				  </div>					 
-			    </div>				
-				
+					</div>				 
+			    </div>								
 		     </div>
 		   <!-- End Content Holder -->
-	 </div> 
+	 </div><!-- End of wrapper --> 
 		
 	<footer class="container-fluid text-center">
-	  <div class="row">
+	  <div class="row-fluid">
 		<div class="col-sm-6">
-		  <p>Data Masters, Inc &copy; 2018</p>
+		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
 		</div>
 		<div class="col-sm-6">
-		  <p>Designed by <a href="https://patrol7171.github.io" class="external">P. Rollins</a></p>
+		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
 		</div>
 	  </div>
 	</footer>  	
 		
-	<!-- jQuery CDN -->
+	<!-- jQuery JS CDN -->
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<!-- Bootstrap JS CDN -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- other JS CDN-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js" type="text/javascript"></script>
 
-	<script>
+	<script> 
 		var allData = {{ data | tojson }};
+		console.log(allData); //TESTING
+		var weatherData = allData[0];
+		var top10cData = allData[1];
+		var top10dData = allData[2];
+		var tempDifference = allData[3];
+		GetWeather(weatherData);
+		pieChartTop10(top10cData,top10dData);
 		
-		var cData = allData[0];
-		var dData = allData[1];
-		var top10CData = allData[2];
-		var top10DData = allData[3];
-
-		chartSet('#chartset',cData);
-		graph2('#graph2',dData);
-		graph3('#graph3',top10CData,top10DData);
+		var quote;
+		var author;
 	
 		$(document).ready(function () {
+		//sidebar
 		 $('#sidebarCollapse').on('click', function () {
 			 $('#sidebar').toggleClass('active');
 		 });
-		});				
+		 //copyright year
+		 $("#year").text((new Date).getFullYear());
+		 //quote requestor
+		 var url = "https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=myJsonMethod&?callback=?";
+		 $.getJSON(url);
+		});			
+		
+		
+		function myJsonMethod(response) {
+		  quote = response.quoteText;
+		  author = response.quoteAuthor;
+		  if (response.quoteAuthor == '') {
+			$('#quoteInfo').html("<h4>" + quote + "</h4>" + "<p><i>- Author Unknown</i></p>");
+		  } else {
+			$('#quoteInfo').html("<h4>" + quote + "</h4>" + "<p><i>- " + author + "</i></p>");
+		  }
+		}
+  
+  
+		function onDocumentReady() {
+			var powerGauge = gauge('#power-gauge', {
+				size: 300,
+				clipWidth: 300,
+				clipHeight: 220,
+				ringWidth: 60,
+				maxValue: 12,
+				transitionMs: 4000,
+			});
+			powerGauge.render();
+			
+			function updateReadings() {
+				powerGauge.update(tempDifference);
+			}			
+			updateReadings();
+		}
+			
+			
+		if ( !window.isLoaded ) {
+			window.addEventListener("load", function() {
+				onDocumentReady();
+			}, false);
+		} else {
+			onDocumentReady();
+		}
 	</script>
+	
 </body>
 
 </html>

@@ -19,7 +19,7 @@
 			padding: 0.2em;
 			font-size: medium;
 			color: #000000;
-			background-color: #BBCCFF;
+			background-color: #7386D5;
 		}
 
 		span.letterLinkSpan>a.letterLink.entriesPresent {
@@ -34,8 +34,8 @@
 		}
 	</style>
 
-	<title>Machine Learning & Climate Change</title>		
-	<link rel="shortcut icon" href="../static/img/favicon.PNG">
+	<title>Machine Learning & Climate Change Project</title>		
+	<link rel="shortcut icon" href="../static/img/favicon.png">
 	 <!-- Bootstrap CSS CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- Font Awesome CSS-->
@@ -46,7 +46,7 @@
 	<link rel="stylesheet" href="../static/css/style_custom.css">		
 	<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
 	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
+
 </head>
 
 <body>
@@ -58,29 +58,29 @@
                     <strong>DM</strong>
                 </div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
                         <a href="{{url_for('index')}}">
                             <i class="glyphicon glyphicon-home"></i>
-                            My Dashboard 
+                            Home 
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="glyphicon glyphicon-duplicate"></i>
                             Project Info
                         </a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="{{url_for('about1')}}" target='_blank'>National</a></li>
-                            <li><a href="{{url_for('about2')}}" target='_blank'>Local</a></li>
+                            <li><a href="{{url_for('about1')}}">National</a></li>
+                            <li><a href="{{url_for('about2')}}">Local</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
                         <a href="{{url_for('glossary')}}">
                             <i class="glyphicon glyphicon-link"></i>
                             Glossary
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
                         <a href="{{url_for('references')}}">
                             <i class="glyphicon glyphicon-paperclip"></i>
                             References
@@ -101,7 +101,7 @@
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 							</ul>
                         </div>
                     </div>
@@ -113,65 +113,55 @@
 						<div class="panel panel-default">						
 							<div class="panel-body">
 								<div id="quicklinks"></div>
-								<h4>Terms:</h4></br>
-								<dl class="glossary"> <a name="Bobcat">
-									<dt>Bobcat</dt>
+								</br>
+								<dl class="glossary"> 
+									<a name="Bobcat"></br>
+										<dt>Bobcat</dt>
 										<dd>A medium-sized, furry mammal that can eat children.</dd>
-									<a name="Cat">
-									</br>
-									<dt>Cat</dt>
+									<a name="Cat"></br>
+										<dt>Cat</dt>
 										<dd>A small, furry mammal that meows.</dd>
-									<a name="Dog">
-									</br>
-									<dt>Dog</dt>
+									<a name="Drought"></br>
+										<dt>Drought</dt>
 										<dd>A small, furry mammal that barks.</dd>
-									<a name="Fish">
-									</br>
-									<dt>Fish</dt>
+									<a name="Flooding"></br>
+										<dt>Flooding</dt>
 										<dd>A scaly aquatic animal that swims in water.</dd>
-									<a name="Flamingo">
-									</br>
-									<dt>Flamingo</dt>
+									<a name="Freeze"></br>
+										<dt>Freeze</dt>
 										<dd>A pink bird.</dd>
-									<a name="Gnat">
-									</br>
-									<dt>Gnat</dt>
+									<a name="Gnat"></br>
+										<dt>Gnat</dt>
 										<dd>A small flying insect.</dd>
-									<a name="Llama">
-									</br>
-									<dt>Llama</dt>
+									<a name="Linear Regression"></br>
+										<dt>Linear Regression</dt>
 										<dd>A shaggy-haired beast of burden with a long neck.</dd>
-									<a name="Mouse">
-									</br>
-									<dt>Mouse</dt>
-										<dd>A tiny mammal.</dd>
-									<a name="Quail">
-									</br>
-									<dt>Quail</dt>
+									<a name="NOAA"></br>
+										<dt>NOAA</dt>
+										<dd>National Oceanic and Atmospheric Association <a href="https://www.ncei.noaa.gov/" class="external" target="_blank">(https://www.ncei.noaa.gov/)</a></dd>
+									<a name="OLS Regression"></br>
+										<dt>OLS Regression</dt>
 										<dd>A small bird.</dd>
-									<a name="Rhino">
-									</br>
-									<dt>Rhino</dt>
+									<a name="Rhino"></br>
+										<dt>Rhino</dt>
 										<dd>A scaly mammal.</dd>
-									<a name="Swan">
-									</br>
-									<dt>Swan</dt>
+									<a name="Severe Storm"></br>
+										<dt>Severe Storm</dt>
 										<dd>A white bird.</dd>
-									<a name="Toucan">
-									</br>
-									<dt>Toucan</dt>
+									<a name="Step-wise Regression"></br>
+										<dt>Step-wise Regression</dt>
+										<dd>A white bird.</dd>
+									<a name="Tropical Cyclone"></br>									
+										<dt>Tropical Cyclone</dt>
 										<dd>A colorful bird.</dd>
-									<a name="Whale">
-									</br>
-									<dt>Whale</dt>
+									<a name="Wildfire"></br>
+										<dt>Wildfires</dt>
 										<dd>A huge aquatic mammal.</dd>
-									<a name="Yak">
-									</br>
-									<dt>Yak</dt>
+									<a name="Winter Storm"></br>
+										<dt>Winter Storm</dt>
 										<dd>A shaggy-haired beast of burden.</dd>
-									<a name="Zebra">
-									</br>
-									<dt>Zebra</dt>
+									<a name="Zebra"></br>
+										<dt>Zebra</dt>
 										<dd>Sort of a horse with white/black stripes.</dd>
 								</dl>
 							</div>	
@@ -183,12 +173,12 @@
 	 </div> 
 	 
 	<footer class="container-fluid text-center">
-	  <div class="row">
+	  <div class="row-fluid">
 		<div class="col-sm-6">
-		  <p>Data Masters, Inc &copy; 2018</p>
+		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
 		</div>
 		<div class="col-sm-6">
-		  <p>Designed by <a href="https://patrol7171.github.io" class="external">P. Rollins</a></p>
+		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
 		</div>
 	  </div>
 	</footer>  	
@@ -231,9 +221,12 @@
 	
 	
 		$(document).ready(function () {
+		//sidebar
 		 $('#sidebarCollapse').on('click', function () {
 			 $('#sidebar').toggleClass('active');
 		 });
+		 //copyright year
+		 $("#year").text((new Date).getFullYear());
 		});				
 	</script>
 </body>

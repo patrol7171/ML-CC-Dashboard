@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="robots" content="all,follow">
+		<title>Machine Learning & Climate Change Project</title>		
+		<link rel="shortcut icon" href="../static/img/favicon.PNG">
+         <!-- Bootstrap CSS CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- Font Awesome CSS-->
+		<link rel="stylesheet" href="../static/vendor/font-awesome/css/font-awesome.min.css">
+		<!-- Fontastic Custom icon font-->
+		<link rel="stylesheet" href="../static/css/fontastic.css">
+        <!-- Dashboard CSS -->
+        <link rel="stylesheet" href="../static/css/style_custom.css">		
+		<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+
+    </head>
+
+<body>
+	<div class="wrapper">
+		<!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h4>Data Masters, Inc.</h4>
+                    <strong>DM</strong>
+                </div>
+                <ul class="list-unstyled components">
+                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
+                        <a href="{{url_for('index')}}">
+                            <i class="glyphicon glyphicon-home"></i>
+                            Home 
+                        </a>
+                    </li>
+                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="glyphicon glyphicon-duplicate"></i>
+                            Project Info
+                        </a>
+						<ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li><a href="{{url_for('about1')}}">National</a></li>
+                            <li><a href="{{url_for('about2')}}">Local</a></li>
+                        </ul>
+                    </li>
+                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
+                        <a href="{{url_for('glossary')}}">
+                            <i class="glyphicon glyphicon-link"></i>
+                            Glossary
+                        </a>
+                    </li>
+                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
+                        <a href="{{url_for('references')}}">
+                            <i class="glyphicon glyphicon-paperclip"></i>
+                            References
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar Holder -->
+            <!-- Start Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+							</ul>
+                        </div>
+                    </div>
+                </nav>
+				
+                <h2>Charlotte Weather Forecast Project</h2>
+                <p>Average temperature predictions are dated for 5/31/2018 through 5/30/2019</p>
+				<div class="row-fluid">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="img-panel">
+						<div class="panel panel-default">
+						<div class="panel-heading">The Forecast Model At A Glance</i></div>
+						<div class="panel-body">
+							<div class="well">
+								<p>Part of our project involved development of a forecast model to predict average temperature in Charlotte, NC. 
+								   The chart below displays our prediction results.  More on the project and creation of the model can be found
+									<a href="https://github.com/patrol7171/Machine-Learning-and-Climate-Change" class="external" target="_blank">here</a>.
+								</p>
+							</div>						
+							<div><img src="../static/img/model_forecast.png" alt="Charlotte predictions" width="925" height="375"></div>
+						</div>	
+						</div>
+					</div>
+			    </div>
+				<div class="row-fluid">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="img-panel">
+						<div class="panel panel-default">
+						<div class="panel-heading">About Climate Change</div>
+						<div class="panel-body">
+							<div class="well">
+								<p>Climate change continues to be a discussion with arguments that are both for or against its legitimacy. There is enough data and 
+									information to support the idea that a warmer and more disaster-ridden climate is in our future.  Our job is to provide tools and 
+									techniques to further the investigation as well as help settle the debate in hopes of being more prepared for what comes next.  For more
+									information, you can view this  <a href="https://prezi.com/view/DKGDQOAv2woV6YgKKx6r" class="external" target="_blank">presentation</a>.
+								</p>
+							</div>
+							<div><img src="../static/img/Climate_Change_Collage.jpg" alt="climate change collage" width="850" height="425"></div>
+						</div>	
+						</div>
+					</div>
+			    </div>				
+		     </div>
+		   <!-- End Content Holder -->
+	 </div> 
+		
+	<footer class="container-fluid text-center">
+	  <div class="row-fluid">
+		<div class="col-sm-6">
+		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
+		</div>
+		<div class="col-sm-6">
+		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
+		</div>
+	  </div>
+	</footer>  	
+		
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<!-- Bootstrap JS CDN -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+
+		$(document).ready(function () {
+		//sidebar
+		 $('#sidebarCollapse').on('click', function () {
+			 $('#sidebar').toggleClass('active');
+		 });
+		 //copyright year
+		 $("#year").text((new Date).getFullYear());
+		});				
+	</script>
+</body>
+
+</html>

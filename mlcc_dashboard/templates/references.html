@@ -9,8 +9,8 @@
 	<meta name="robots" content="all,follow">
 	
 
-	<title>Machine Learning & Climate Change</title>		
-	<link rel="shortcut icon" href="../static/img/favicon.PNG">
+	<title>Machine Learning & Climate Change Project</title>		
+	<link rel="shortcut icon" href="../static/img/favicon.png">
 	 <!-- Bootstrap CSS CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- Font Awesome CSS-->
@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="../static/css/style_custom.css">		
 	<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
 	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<!-- <base href=https://cdn.rawgit.com/NPashaP/96447623ef4d342ee09b/raw/ target="_blank">	 -->
+
 </head>
 
 <body>
@@ -33,29 +33,29 @@
                     <strong>DM</strong>
                 </div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
                         <a href="{{url_for('index')}}">
                             <i class="glyphicon glyphicon-home"></i>
-                            My Dashboard 
+                            Home 
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="glyphicon glyphicon-duplicate"></i>
                             Project Info
                         </a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="{{url_for('about1')}}" target='_blank'>National</a></li>
-                            <li><a href="{{url_for('about2')}}" target='_blank'>Local</a></li>
+                            <li><a href="{{url_for('about1')}}">National</a></li>
+                            <li><a href="{{url_for('about2')}}">Local</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
                         <a href="{{url_for('glossary')}}">
                             <i class="glyphicon glyphicon-link"></i>
                             Glossary
                         </a>
                     </li>
-                    <li>
+                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
                         <a href="{{url_for('references')}}">
                             <i class="glyphicon glyphicon-paperclip"></i>
                             References
@@ -76,7 +76,7 @@
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 							</ul>
                         </div>
                     </div>
@@ -100,12 +100,12 @@
 	 </div> 
 	 
 	<footer class="container-fluid text-center">
-	  <div class="row">
+	  <div class="row-fluid">
 		<div class="col-sm-6">
-		  <p>Data Masters, Inc &copy; 2018</p>
+		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
 		</div>
 		<div class="col-sm-6">
-		  <p>Designed by <a href="https://patrol7171.github.io" class="external">P. Rollins</a></p>
+		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
 		</div>
 	  </div>
 	</footer>  	
@@ -117,11 +117,13 @@
 
 	<script>
 
-	
 		$(document).ready(function () {
+		//sidebar
 		 $('#sidebarCollapse').on('click', function () {
 			 $('#sidebar').toggleClass('active');
 		 });
+		 //copyright year
+		 $("#year").text((new Date).getFullYear());
 		});				
 	</script>
 </body>
