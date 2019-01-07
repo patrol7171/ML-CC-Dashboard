@@ -64,7 +64,8 @@ i, span {
 }
 
 .panel-footer a:hover,
-.well a:hover {
+.well a:hover,
+#references-panel ol li a:hover {
 	color: orange !important;
 }
 
@@ -182,6 +183,7 @@ i, span {
 #sidebar .sidebar-header {
     padding: 20px;
     background: #6d7fcc;
+	color: orange !important;
 }
 
 #sidebar .sidebar-header strong {

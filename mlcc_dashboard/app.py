@@ -32,10 +32,10 @@ from aerisweather.requests.RequestFilter import RequestFilter
 from aerisweather.responses.ObservationsResponse import ObservationsResponse
 from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
 from aerisweather.requests.Endpoint import Endpoint, EndpointType
-from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['client_id'], os.environ['client_secret'])
-# from APIkeys import client_id, client_secret
 
+# from APIkeys import client_id, client_secret
+# client_id = client_id
+# client_secret = client_secret
 
 
 #################################################
@@ -77,6 +77,15 @@ class CLTtemps(db.Model):
 db.create_all()
 db.session.commit()
 
+
+
+#################################################
+# API Config
+#################################################
+client_id = os.environ.get('client_id')
+client_secret = os.environ.get('client_secret')
+app_id="com.aerisweather.pythonsdkdemo"
+
 	
 
 #################################################
@@ -85,7 +94,7 @@ db.session.commit()
 @app.route("/")
 def index():
 	"""Render Home Page"""
-	aeris = AerisWeather(client_id=client_id, client_secret=client_secret, app_id="com.aerisweather.pythonsdkdemo")
+	aeris = AerisWeather(client_id, client_secret, app_id)
 	loc = RequestLocation(city="charlotte", state="nc")
 	obs_dict = {}	
 	global aerisTemp
