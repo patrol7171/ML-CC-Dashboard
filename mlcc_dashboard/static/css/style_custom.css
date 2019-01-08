@@ -65,7 +65,7 @@ i, span {
 
 .panel-footer a:hover,
 .well a:hover,
-#references-panel ol li a:hover {
+ol.references li a:hover {
 	color: orange !important;
 }
 
