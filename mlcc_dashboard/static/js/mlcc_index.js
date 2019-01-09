@@ -447,7 +447,7 @@ function pieChartTop10(datasetOption1, datasetOption2){
 
 	var tooltip = d3.select("#piechart").append("div").attr("class", "toolTip");	
 
-	var color = d3.scaleOrdinal(d3.schemeCategory20);
+	var color = d3.scaleOrdinal(d3.schemeCategory10);
 	
 	var percFormat = d3.format(',.2%');
 	

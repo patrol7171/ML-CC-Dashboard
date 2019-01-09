@@ -22,7 +22,11 @@ a, a:hover, a:focus {
 }
 
 footer a:hover{
-	color: orange !important;
+	color: #ffae19 !important;
+}
+
+footer p{
+	color: #e4e4e4 !important;
 }
 
 i, span {
@@ -65,8 +69,8 @@ i, span {
 
 .panel-footer a:hover,
 .well a:hover,
-ol.references li a:hover {
-	color: orange !important;
+#ref-list:hover {
+	color: #ffae19 !important;
 }
 
 .panel-heading {
@@ -75,6 +79,7 @@ ol.references li a:hover {
 
 .panel-transparent .panel-body {
 	background: rgba(115, 134, 213, 0.4)!important;
+	border: 1px solid #ffae19 !important;
 }
 
 #graph-panel .panel-body, 
@@ -90,6 +95,19 @@ ol.references li a:hover {
 .well a {
 	color: #273983 !important;
 }
+
+.gradient {
+  background-image:
+    linear-gradient(
+      to right, 
+      rgba(255, 174, 25, 0.5), 
+      rgba(228, 228, 228, 0.5), 
+      rgba(115, 134, 213, 0.5)
+    )!important;
+}
+
+
+
 
 /* ---------------------------------------------------
     NAVBAR STYLE
@@ -118,6 +136,12 @@ ol.references li a:hover {
     margin-right: auto;
     margin-left: auto;
 }
+
+.navbar-nav > li > a {
+	padding-top: 10px !important;
+	padding-bottom: 5px !important;
+}
+
 
 
 /* ---------------------------------------------------
@@ -241,7 +265,6 @@ a[aria-expanded="true"]::before {
     content: '\e260';
 }
 
-
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -281,6 +304,7 @@ a.article, a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
 }
+
 
 
 /* ---------------------------------------------------
