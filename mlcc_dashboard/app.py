@@ -33,6 +33,7 @@ from aerisweather.responses.ObservationsResponse import ObservationsResponse
 from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
 from aerisweather.requests.Endpoint import Endpoint, EndpointType
 
+
 #######FOR LOCAL DEPLOYMENT########:
 # from APIkeys import client_id, client_secret
 # client_id = client_id
@@ -58,7 +59,6 @@ session = Session(engine)
 
 class Disasters(db.Model):
     __tablename__ = 'US_Disasters'
-
     id = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String)
     Disaster = db.Column(db.String)
@@ -70,7 +70,6 @@ class Disasters(db.Model):
 
 class CLTtemps(db.Model):
     __tablename__ = 'CLT_AvgTemp_Forecasts'
-
     ID = db.Column(db.Integer, primary_key=True)
     Date = db.Column(db.String)
     ForecastTemps = db.Column(db.Float)	
@@ -87,7 +86,7 @@ client_id = os.environ.get('client_id')
 client_secret = os.environ.get('client_secret')
 app_id="mlcc-dashboard"
 
-	
+
 
 #################################################
 # Flask Routes
