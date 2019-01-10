@@ -22,7 +22,7 @@ a, a:hover, a:focus {
 }
 
 footer a:hover{
-	color: #ffae19 !important;
+	color: #ffae19  !important;
 }
 
 footer p{
@@ -70,7 +70,7 @@ i, span {
 .panel-footer a:hover,
 .well a:hover,
 #ref-list:hover {
-	color: #ffae19 !important;
+	color: #ffae19  !important;
 }
 
 .panel-heading {
@@ -79,7 +79,7 @@ i, span {
 
 .panel-transparent .panel-body {
 	background: rgba(115, 134, 213, 0.4)!important;
-	border: 1px solid #ffae19 !important;
+	border: 1px solid #ffae19  !important;
 }
 
 #graph-panel .panel-body, 
@@ -207,7 +207,7 @@ i, span {
 #sidebar .sidebar-header {
     padding: 20px;
     background: #6d7fcc;
-	color: orange !important;
+	color: #ffae19 !important;
 }
 
 #sidebar .sidebar-header strong {

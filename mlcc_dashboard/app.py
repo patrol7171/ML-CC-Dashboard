@@ -17,7 +17,7 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 import json
 import pprint
 import urllib
-from datetime import datetime
+import datetime
 from dateutil.parser import parse
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict, ChainMap, OrderedDict
@@ -144,13 +144,11 @@ def index():
 	newtop10d.columns = ['label', 'total', 'value']
 	dataOpt2 = newtop10d.to_dict(orient='records')
 				
-	month = datetime.today().month
-	day = datetime.today().day
-	year = (datetime.today().year)
-	searchDate = str(year) + "-0" + str(month) + "-0" + str(day)
+	d = datetime.date.today()
+	searchDate = str(d.year) + '-' + f"{d:%m}" + '-' + f"{d:%d}"
 	result = db.session.query(CLTtemps).filter(CLTtemps.Date == searchDate)
-	for _row in result.all():    
-		temp2 = _row.ForecastTemps
+	for row in result.all(): 
+		temp2 = row.ForecastTemps	
 	temp2 = (round(temp2,0))
 	difference = aerisTemp - temp2
 	
