@@ -105,50 +105,63 @@
 				</div>
 				<div class="row-fluid" id="weather_info">
 				  <div class="span12 text-center">
-					<div class="col-sm-3 col-md-3 col-lg-3">
+				  
+					<div class="col-sm-15 col-md-15 col-lg-15">
 					  <div class="panel panel-primary panel-transparent text-center">
 						<div class="panel-body" id="weather">
 							<span>
 								<h1></h1> 
-								<h4>CURRENT WEATHER</h4><hr>
+								<h4>CURRENT<br>WEATHER</h4><hr>
 								<h3></h3>
 							</span>
 						</div>
 					  </div>
 					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3">
+					<div class="col-sm-15 col-md-15 col-lg-15">
 					  <div class="panel panel-primary panel-transparent text-center">
 						<div class="panel-body" id="temp">
 							<span>
 								<h1><i class="wi wi-thermometer wi-4x"></i></h1>
-								<h4>CURRENT TEMPERATURE</h4><hr>
+								<h4>CURRENT<br>TEMPERATURE</h4><hr>
 								<h3></h3>              
 							</span>
 						</div>
 					  </div>
 					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3">
+					<div class="col-sm-15 col-md-15 col-lg-15">
 					  <div class="panel panel-primary panel-transparent text-center">
 						<div class="panel-body" id="humidity">
 							<span>
 								<h1><h1><i class="wi wi-humidity wi-4x"></i></h1></h1>
-								<h4>CURRENT HUMIDITY</h4><hr>
+								<h4>CURRENT<br>HUMIDITY</h4><hr>
 								<h3></h3>              
 							</span>
 						</div>
 					  </div>
 					</div>
-					<div class="col-sm-3 col-md-3 col-lg-3">
+					<div class="col-sm-15 col-md-15 col-lg-15">
+					  <div class="panel panel-primary panel-transparent text-center">
+						<div class="panel-body" id="avgtemp">
+							<span>
+								<h1><i class="wi wi-thermometer-exterior wi-4x"></i></h1>
+								<h4>AVERAGE<br>TEMPERATURE</h4><hr>
+								<h3></h3>              
+							</span>
+						</div>
+					  </div>
+					</div>
+					<div class="col-sm-15 col-md-15 col-lg-15">
 					  <div class="panel panel-primary panel-transparent text-center">
 						<div class="panel-body" id="precip">
 							<span>
 								<h1><h1><i class="wi wi-raindrops wi-4x"></i></h1></h1>
-								<h4>TOTAL PRECIPITATION</h4><hr>
+								<h4>TOTAL<br>PRECIPITATION</h4><hr>
 								<h3></h3>              
 							</span>
 						</div>
 					  </div>
 					</div>
+					
 				  </div>				
 				</div>	
 				<div class="row-fluid">
@@ -166,7 +179,7 @@
 									</div>
 								</div>
 							<div class="panel-footer text-right">
-								<a href="{{url_for('about1')}}">More Info</a>
+								<a href="{{url_for('about1')}}"><i><b>More Info</b></i></a>
 							</div>							
 						</div>
 					</div>
@@ -176,12 +189,12 @@
 								<div class="panel-body">
 									<div id="power-gauge">
 										<br>
-										<p id="avgTemp">How good is our forecast model?...</p>
+										<p id="avgTemp"><b>How good is our forecast model?...</b></p>
 										<!-- <svg id='svg2' viewBox="0 0 30 18" ></svg> -->
 									</div>
 								</div>
 							<div class="panel-footer text-right">
-								<a href="{{url_for('about2')}}">More Info</a>
+								<a href="{{url_for('about2')}}"><i><b>More Info</b></i></a>
 							</div>							
 						</div>
 					</div>				 

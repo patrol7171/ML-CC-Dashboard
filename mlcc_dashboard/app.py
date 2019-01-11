@@ -27,9 +27,9 @@ import requests
 
 
 ####### FOR LOCAL USE ONLY ########:
-# from APIkeys import client_id, client_secret
-# CLIENT_ID = client_id
-# CLIENT_SECRET = client_secret
+from APIkeys import client_id, client_secret
+CLIENT_ID = client_id
+CLIENT_SECRET = client_secret
 
 
 
@@ -75,8 +75,8 @@ db.session.commit()
 #################################################
 # Aeris Weather API Config
 #################################################
-CLIENT_ID = os.environ.get('client_id')
-CLIENT_SECRET = os.environ.get('client_secret')
+# CLIENT_ID = os.environ.get('client_id')
+# CLIENT_SECRET = os.environ.get('client_secret')
 
 
 

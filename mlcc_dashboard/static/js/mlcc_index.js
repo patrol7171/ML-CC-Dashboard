@@ -13,6 +13,7 @@ function GetWeather(info) {
 	var timeStamp = new Date(time*1000);
 	
 	$('#temp h3').html(info['tempF'] + '<i class="wi wi-fahrenheit wi-4x"></i>');
+	$('#avgtemp h3').html(info['avgTempF'] + '<i class="wi wi-fahrenheit wi-4x"></i>');	
 	$('#humidity h3').html(info['humidity'] + '%');
 	$('#precip h3').html(info['precipMM'] + ' mm');
 	$('#weather h3').html(info['weatherShort']);
