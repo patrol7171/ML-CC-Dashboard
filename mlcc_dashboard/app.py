@@ -26,18 +26,25 @@ import humanize
 import requests
 
 
-####### FOR LOCAL USE ONLY ########:
-# from APIkeys import client_id, client_secret
-# CLIENT_ID = client_id
-# CLIENT_SECRET = client_secret
-
-
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+
+#################################################
+# Aeris Weather API Keys
+#################################################
+####### FOR LOCAL USE ONLY ########:
+# from APIkeys import client_id, client_secret
+# CLIENT_ID = client_id
+# CLIENT_SECRET = client_secret
+####### FOR HEROKU DEPLOYMENT ONLY ########:
+CLIENT_ID = os.environ.get('client_id')
+CLIENT_SECRET = os.environ.get('client_secret')
 
 
 
@@ -69,14 +76,6 @@ class CLTtemps(db.Model):
 	
 db.create_all()
 db.session.commit()
-
-
-
-#################################################
-# Aeris Weather API Config
-#################################################
-CLIENT_ID = os.environ.get('client_id')
-CLIENT_SECRET = os.environ.get('client_secret')
 
 
 
