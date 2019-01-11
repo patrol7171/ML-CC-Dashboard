@@ -23,21 +23,14 @@ from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict, ChainMap, OrderedDict
 pd.options.mode.chained_assignment = None
 import humanize
-
-from aerisweather.aerisweather import AerisWeather
-from aerisweather.requests.ParameterType import ParameterType
-from aerisweather.requests.RequestLocation import RequestLocation
-from aerisweather.requests.RequestAction import RequestAction
-from aerisweather.requests.RequestFilter import RequestFilter
-from aerisweather.responses.ObservationsResponse import ObservationsResponse
-from aerisweather.responses.ObservationsSummaryResponse import ObservationsSummaryResponse
-from aerisweather.requests.Endpoint import Endpoint, EndpointType
+import requests
 
 
-#######FOR LOCAL DEPLOYMENT########:
+####### FOR LOCAL USE ONLY ########:
 # from APIkeys import client_id, client_secret
-# client_id = client_id
-# client_secret = client_secret
+# CLIENT_ID = client_id
+# CLIENT_SECRET = client_secret
+
 
 
 #################################################
@@ -84,7 +77,6 @@ db.session.commit()
 #################################################
 client_id = os.environ.get('client_id')
 client_secret = os.environ.get('client_secret')
-app_id="mlcc-dashboard"
 
 
 
@@ -94,32 +86,39 @@ app_id="mlcc-dashboard"
 @app.route("/")
 def index():
 	"""Render Home Page"""
-	aeris = AerisWeather(client_id, client_secret, app_id)
-	loc = RequestLocation(city="charlotte", state="nc")
 	obs_dict = {}	
 	global aerisTemp
-	endpoint1 = Endpoint(endpoint_type=EndpointType.OBSERVATIONS, action=RequestAction.OBSERVATIONS.CLOSEST, params={ParameterType.OBSERVATIONS.P: "28269"})
-	endpoint2 = Endpoint(endpoint_type=EndpointType.OBSERVATIONS_SUMMARY)
-	endpoints = [endpoint1, endpoint2]	
-	response_list = aeris.batch_request(endpoints=endpoints, global_location=loc)	
-	for resp in response_list:  
-		if type(resp) is ObservationsResponse:
-			obs = resp
-			ob = obs.ob
-			obs_dict.update(timestamp = str(ob.timestamp))
-			obs_dict.update(humidity = str(ob.humidity))
-			obs_dict.update(isDay = str(ob.isDay))
-			# obs_dict.update(tempC = str(ob.tempC))
-			obs_dict.update(tempF = str(ob.tempF))
-			obs_dict.update(weatherPrimaryCoded = str(ob.weatherPrimaryCoded))
-			obs_dict.update(weatherShort = str(ob.weatherShort))
-		elif type(resp) is ObservationsSummaryResponse:
-			ob_sum = resp
-			periods = ob_sum.periods
-			temp = periods[0].temp
-			aerisTemp = temp.avgF
-			obs_dict.update(avgTempF = str(temp.avgF))
-			obs_dict.update(precipMM = str(periods[0].precip.totalMM))
+	global respTypes
+	endpt1 = '/observations?p=charlotte%2Cnc'
+	endpt2 = '/observations/summary?p=charlotte%2Cnc'
+	aerisURL = "http://api.aerisapi.com/batch/charlotte,nc?requests=/observations,/observations/summary&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET
+	request = urllib.request.urlopen(aerisURL)
+	response = request.read()
+	info = json.loads(response)
+	if info['success']:
+		respTypes = info['response']['responses']
+		if respTypes[0]['request'] == endpt1:
+			resp = respTypes[0]
+			obs = resp['response']
+			ob = obs['ob']
+			obs_dict.update(timestamp = str(ob['timestamp']))
+			obs_dict.update(humidity = str(ob['humidity']))
+			obs_dict.update(isDay = str(ob['isDay']))
+			obs_dict.update(tempF = str(ob['tempF']))
+			obs_dict.update(weatherPrimaryCoded = str(ob['weatherPrimaryCoded']))
+			obs_dict.update(weatherShort = str(ob['weatherShort']))
+		if respTypes[1]['request'] == endpt2:
+			resp = respTypes[1]
+			ob_sum = resp['response']
+			periods = ob_sum[0]['periods']
+			aerisTemp = periods[0]['summary']['temp']['avgF']
+			precipMM = periods[0]['summary']['precip']['totalMM']
+			obs_dict.update(avgTempF = str(aerisTemp))
+			obs_dict.update(precipMM = str(precipMM))
+	else:
+		print("An error occurred: %s" % (info['error']['description']))
+		respTypes = {}
+		request.close()
 			
 	query_statement1 = "SELECT Disaster, Total_CPI_Adjusted_Cost_Millions, Deaths FROM US_Disasters"
 	df_disasters = pd.read_sql_query(query_statement1, db.session.bind)
@@ -152,7 +151,7 @@ def index():
 	difference = aerisTemp - temp2
 	
 	return render_template("index.html", data=(obs_dict,dataOpt1,dataOpt2,difference))
-		
+
 	
 	
 @app.route("/about1")

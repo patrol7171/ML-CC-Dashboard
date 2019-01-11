@@ -457,8 +457,8 @@ a.article, a.article:hover {
 }
 
 #power-gauge g.pointer {
-	fill: red;
-	stroke: #b64011;
+	fill: black;
+	stroke: #003665;
 }
 
 #power-gauge g.label text {

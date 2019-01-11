@@ -259,14 +259,14 @@ var gauge = function(container, configuration) {
 		pointerHeadLengthPercent	: 0.9,
 		
 		minValue					: 0,
-		maxValue					: 12,
+		maxValue					: 18,
 		
 		minAngle					: -90,
 		maxAngle					: 90,
 		
 		transitionMs				: 750,
 		
-		majorTicks					: 4,
+		majorTicks					: 6,
 		labelFormat					: d3.format('d'),
 		labelInset					: 10,
 		
@@ -312,7 +312,7 @@ var gauge = function(container, configuration) {
 			.domain([config.minValue, config.maxValue]);
 			
 		/* ticks = scale.ticks(config.majorTicks); */
-		ticks = [0,3,6,9,12];	
+		ticks = [0,3,6,9,12,15,18];	
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 		
 		arc = d3.arc()
