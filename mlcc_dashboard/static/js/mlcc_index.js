@@ -415,7 +415,7 @@ var gauge = function(container, configuration) {
 function pieChartTop10(datasetOption1, datasetOption2){	
 	d3.selectAll("input").on("change", selectDataset); 
 		
-  	var width = 480, height = 220;
+  	var width = 950, height = 440;
 	
 	var radius = Math.min(width, height) / 2;
 		
