@@ -415,13 +415,13 @@ var gauge = function(container, configuration) {
 function pieChartTop10(datasetOption1, datasetOption2){	
 	d3.selectAll("input").on("change", selectDataset); 
 		
-  	var width = 480,
-		height = 220,
-		radius = Math.min(width, height) / 2;
+  	var width = 500, height = 200;
+	
+	var radius = Math.min(width, height) / 2;
 		
 	var svg = d3.select("#svg1")
-		.attr("width", width)
-		.attr("height", height)
+		/* .attr("width", width) */
+		/* .attr("height", height) */
 		.append("g")
 		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -445,8 +445,6 @@ function pieChartTop10(datasetOption1, datasetOption2){
 	var outerArc = d3.arc()
 		.innerRadius(radius * 0.9)
 		.outerRadius(radius * 0.9);
-
-	var tooltip = d3.select("#piechart").append("div").attr("class", "toolTip");	
 
 	var color = d3.scaleOrdinal(d3.schemeCategory10);
 	
@@ -497,15 +495,17 @@ function pieChartTop10(datasetOption1, datasetOption2){
 				};
 			})
 		slice
-			.on("mousemove", function(d){
-                tooltip.style("left", (d3.event.pageX - 200) + "px")		
-                tooltip.style("top", (d3.event.pageY - 600) + "px");	
-				tooltip.style("display", "inline-block");
-				tooltip.html((d.data.label) + "<br>" + (d.data.total));
+			 .on("mouseover", function(d){
+				svg.append("text")
+				   .attr('class', 'ctrText')
+				   .attr("dy", ".5em")
+				   .style("text-anchor", "middle")
+				   .style('font-size', '1em')
+				   .html(d.data.total);
 			});
 		slice
 			.on("mouseout", function(d){
-				tooltip.style("display", "none");
+			   d3.selectAll('.ctrText').remove();
 			});
 
 		slice.exit().remove();
