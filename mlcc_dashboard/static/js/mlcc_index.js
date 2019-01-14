@@ -415,13 +415,13 @@ var gauge = function(container, configuration) {
 function pieChartTop10(datasetOption1, datasetOption2){	
 	d3.selectAll("input").on("change", selectDataset); 
 		
-  	var width = 500, height = 200;
+  	var width = 480, height = 220;
 	
 	var radius = Math.min(width, height) / 2;
 		
 	var svg = d3.select("#svg1")
-		/* .attr("width", width) */
-		/* .attr("height", height) */
+		.attr("width", width)
+		.attr("height", height)
 		.append("g")
 		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -501,6 +501,7 @@ function pieChartTop10(datasetOption1, datasetOption2){
 				   .attr("dy", ".5em")
 				   .style("text-anchor", "middle")
 				   .style('font-size', '1em')
+				   .style('font-weight', 'bold')
 				   .html(d.data.total);
 			});
 		slice

@@ -122,7 +122,7 @@ i, span {
 #graph-panel .panel-body, 
 #img-panel .panel-body {
 	vertical-align: middle !important;
-	text-align: center;
+	text-align: center !important;
 }
 
 .well {
@@ -516,7 +516,7 @@ a.article, a.article:hover {
 }	
 
 #piechart svg {
-	width: auto;
+	/* width: auto; */
 }
 
 #piechart path.slice{
@@ -535,24 +535,15 @@ a.article, a.article:hover {
 	opacity: .5;		
 }
 
-#piechart .toolTip {
-	position: absolute;
-	display: none;
-	width: auto;
-	height: auto;
-	background: none repeat scroll 0 0 white;
-	border: 0 none;
-	border-radius: 8px 8px 8px 8px;
-	box-shadow: -3px 3px 15px #888888;
+#piechart .ctrText {
 	color: black;
-	font: 12px sans-serif;
-	padding: 5px;
-	text-align: center;
+	font: 16px sans-serif;
 }
 
 #piechart text {
-  font: 12px sans-serif;
+	font: 12px sans-serif;
 }
+
 
 
 
