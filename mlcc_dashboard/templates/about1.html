@@ -1,168 +1,61 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="">
-		<meta name="robots" content="all,follow">
-		<title>Machine Learning & Climate Change Project</title>		
-		<link rel="shortcut icon" href="../static/img/favicon.png">
-         <!-- Bootstrap CSS CDN -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!-- Fontastic Custom icon font-->
-		<link rel="stylesheet" href="../static/css/fontastic.css">
-        <!-- Dashboard CSS -->
-        <link rel="stylesheet" href="../static/css/style_custom.css">		
-		<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
-		<script src="https://d3js.org/d3.v4.min.js"></script>
+{% extends "base.html" %}
 
-    </head>
-
-<body>
-	<div class="wrapper">
-		<!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h4>Data Masters, Inc.</h4>
-                    <strong>DM</strong>
-                </div>
-                <ul class="list-unstyled components">
-                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
-                        <a href="{{url_for('index')}}">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Home 
-                        </a>
-                    </li>
-                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
-                            <i class="glyphicon glyphicon-duplicate"></i>
-                            Project Info
-                        </a>
-						<ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="{{url_for('about1')}}">National</a></li>
-                            <li><a href="{{url_for('about2')}}">Local</a></li>
-                        </ul>
-                    </li>
-                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
-                        <a href="{{url_for('glossary')}}">
-                            <i class="glyphicon glyphicon-link"></i>
-                            Glossary
-                        </a>
-                    </li>
-                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
-                        <a href="{{url_for('references')}}">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            References
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End Sidebar Holder -->
-            <!-- Start Page Content Holder -->
-            <div id="content">
-
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                                <i class="glyphicon glyphicon-align-left"></i>
-                            </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"><img src="../static/img/user.png" alt="John Doe" width="35" height="35"></a></li>							
-								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-							</ul>
-                        </div>
-                    </div>
-                </nav>
-				
-                <h2>Weather-Related Disasters to Affect the U.S. From 1980 to 2018</h2>
-                <p>Data was obtained online from <a href="https://www.ncei.noaa.gov/" class="external" target="_blank">NOAA</a> and represents January 1980 through June 2018</p>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="graph-panel">
-						<div class="panel panel-default">
-						<div class="panel-heading">Total CPI Adjusted Cost in Millions <i>(Hover over parts of each graph for a further breakdown)</i></div>
-						<div class="panel-body">
-							<div id='chartset'>
-								<svg id='barsvg'></svg><svg id='piesvg'></svg>
-							</div>
-						</div>	
-						</div>
-					</div>
-			    </div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="graph-panel">
-						<div class="panel panel-default">
-						<div class="panel-heading">Total Death Toll By Weather-Related Disaster</div>
-						<div class="panel-body">
-							<div id='graph2'>
-								<svg id='svg2' width='900' height='375'></svg>
-							</div>
-						</div>	
-						</div>
-					</div>
-			    </div>			
-			    <div class="row">
-				  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"id="graph-panel">
-					<div class="panel panel-default">
-					<div class="panel-heading">Top 10 Costliest & Deadliest Weather-Related Disasters</div>
-						<div class="panel-body">
-							<div id='graph3'>
-								<form>
-									<label><input type="radio" name="dataset" id="dataset" value="option1"> Top 10 Costliest (CPI Adjusted Cost in Millions)</label>
-									&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-									<label><input type="radio" name="dataset" id="dataset" value="option2"> Top 10 Deadliest</label>
-								</form>
-								<svg id='svg3' width='900' height='375'></svg>
-							</div>
-						</div>
-					</div>
-				  </div>					 
-			    </div>				
-				
-		     </div>
-		   <!-- End Content Holder -->
-	 </div> 
-		
-	<footer class="container-fluid text-center">
-	  <div class="row-fluid">
-		<div class="col-sm-6">
-		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
+{% block content %}		
+	<h2>Weather-Related Disasters to Affect the U.S. From 1980 to 2018</h2>
+	<p>Data was obtained online from <a href="https://www.ncei.noaa.gov/" class="external" target="_blank">NOAA</a> and represents January 1980 through June 2018</p>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="graph-panel">
+			<div class="panel panel-default">
+			<div class="panel-heading">Total CPI Adjusted Cost in Millions <i>(Hover over parts of each graph for a further breakdown)</i></div>
+			<div class="panel-body">
+				<div id='chartset'>
+					<svg id='barsvg'></svg><svg id='piesvg'></svg>
+				</div>
+			</div>	
+			</div>
 		</div>
-		<div class="col-sm-6">
-		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="graph-panel">
+			<div class="panel panel-default">
+			<div class="panel-heading">Total Death Toll By Weather-Related Disaster</div>
+			<div class="panel-body">
+				<div id='graph2'>
+					<svg id='svg2' width='900' height='375'></svg>
+				</div>
+			</div>	
+			</div>
 		</div>
-	  </div>
-	</footer>  	
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-	<!-- Bootstrap JS CDN -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</div>			
+	<div class="row">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"id="graph-panel">
+		<div class="panel panel-default">
+		<div class="panel-heading">Top 10 Costliest & Deadliest Weather-Related Disasters</div>
+			<div class="panel-body">
+				<div id='graph3'>
+					<form>
+						<label><input type="radio" name="dataset" id="dataset" value="option1"> Top 10 Costliest (CPI Adjusted Cost in Millions)</label>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						<label><input type="radio" name="dataset" id="dataset" value="option2"> Top 10 Deadliest</label>
+					</form>
+					<svg id='svg3' width='900' height='375'></svg>
+				</div>
+			</div>
+		</div>
+	  </div>					 
+	</div>				
+{% endblock %}
 
-	<script>
-		var allData = {{ data | tojson }};
-		
-		var cData = allData[0];
-		var dData = allData[1];
-		var top10CData = allData[2];
-		var top10DData = allData[3];
-
-		chartSet('#chartset',cData);
-		graph2('#graph2',dData);
-		graph3('#graph3',top10CData,top10DData);
+{% block about1_script %}
+	var allData = {{ data | tojson }};
 	
-		$(document).ready(function () {
-		//sidebar
-		 $('#sidebarCollapse').on('click', function () {
-			 $('#sidebar').toggleClass('active');
-		 });
-		 //copyright year
-		 $("#year").text((new Date).getFullYear());
-		});				
-	</script>
-</body>
+	var cData = allData[0];
+	var dData = allData[1];
+	var top10CData = allData[2];
+	var top10DData = allData[3];
 
-</html>
+	chartSet('#chartset',cData);
+	graph2('#graph2',dData);
+	graph3('#graph3',top10CData,top10DData);
+{% endblock %}		
+		

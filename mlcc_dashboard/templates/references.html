@@ -1,149 +1,37 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="">
-	<meta name="robots" content="all,follow">
-	
-
-	<title>Machine Learning & Climate Change Project</title>		
-	<link rel="shortcut icon" href="../static/img/favicon.png">
-	 <!-- Bootstrap CSS CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- Fontastic Custom icon font-->
-	<link rel="stylesheet" href="../static/css/fontastic.css">
-	<!-- Dashboard CSS -->
-	<link rel="stylesheet" href="../static/css/style_custom.css">		
-	<script src="../static/js/mlcc_xtra.js" type="text/javascript"></script>			
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-
-</head>
-
-<body>
-	<div class="wrapper">
-		<!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h4>Data Masters, Inc.</h4>
-                    <strong>DM</strong>
-                </div>
-                <ul class="list-unstyled components">
-                    <li {% if request.endpoint == 'index' %}class="active"{% endif %}>
-                        <a href="{{url_for('index')}}">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Home 
-                        </a>
-                    </li>
-                    <li {% if request.endpoint == 'about1' %}class="active" {% elif request.endpoint == 'about2' %}class="active"{% endif %}>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
-                            <i class="glyphicon glyphicon-duplicate"></i>
-                            Project Info
-                        </a>
-						<ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="{{url_for('about1')}}">National</a></li>
-                            <li><a href="{{url_for('about2')}}">Local</a></li>
-                        </ul>
-                    </li>
-                    <li {% if request.endpoint == 'glossary' %}class="active"{% endif %}>
-                        <a href="{{url_for('glossary')}}">
-                            <i class="glyphicon glyphicon-link"></i>
-                            Glossary
-                        </a>
-                    </li>
-                    <li {% if request.endpoint == 'references' %}class="active"{% endif %}>
-                        <a href="{{url_for('references')}}">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            References
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End Sidebar Holder -->
-            <!-- Start Page Content Holder -->
-            <div id="content">
-
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                                <i class="glyphicon glyphicon-align-left"></i>
-                            </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"><img src="../static/img/user.png" alt="John Doe" width="35" height="35"></a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-							</ul>
-                        </div>
-                    </div>
-                </nav>
+{% block content %}				
+	<h2>References</h2>				
+	<div class="row-fluid">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-default">						
+				<div class="panel-body">							.
+					<ol class="references">
+						<li id="ref-list"><a href="http://suruchifialoke.com/2016-08-17-machine-learning-tutorial-with-python-I/" target="_blank">
+							<p id="ref-list">Suruchi Fialoke, <cite>Regression Forecasting and Predicting</cite>, suruchifialoke.com, 17 Aug. 2016. Web</p></a>
+						</li>									
+						<li><a target="_blank" href="https://www.scientificamerican.com/article/how-machine-learning-could-help-to-improve-climate-forecasts/">
+							<p id="ref-list">Nicola Jones, <cite>How Machine Learning Could Help to Improve Climate Forecasts</cite>, Scientific American, 23 Aug. 2017. Web.</p></a>
+						</li>
+						<li><a target="_blank" href="https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/">
+							<p id="ref-list">Adam McQueen, <cite>Using Machine Learning to Predict the Weather: Part 1</cite>, Stack Abuse, 14 Nov. 2017. Web.</p></a>
+						</li>									
+						<li><a target="_blank" href="https://w1.weather.gov/glossary/">
+							<p id="ref-list">NOAA, <cite>National Weather Service Glossary</cite>, 5 Jan. 2019. Web.</p></a>
+						</li>
+						<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Linear_regression&oldid=876797132">
+							<p id="ref-list">Wikipedia contributors. <cite>"Linear regression."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 4 Jan. 2019. Web. 5 Jan. 2019.</p></a>
+						</li>																		
+						<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Ordinary_least_squares&oldid=876394211">
+							<p id="ref-list">Wikipedia contributors. <cite>"Ordinary least squares."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 2 Jan. 2019. Web. 5 Jan. 2019.</p></a>
+						</li>									
+						<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Stepwise_regression&oldid=873228475">
+							<p id="ref-list">Wikipedia contributors. <cite>"Stepwise regression."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 11 Dec. 2018. Web. 5 Jan. 2019.</p></a>
+						</li>
+					</ol>								
+				</div>	
+			</div>
+		</div>
+	</div>			
+{% endblock %}					
 				
-                <h2>References</h2>				
-				<div class="row-fluid">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="panel panel-default">						
-							<div class="panel-body">							.
-								<ol class="references">
-									<li id="ref-list"><a href="http://suruchifialoke.com/2016-08-17-machine-learning-tutorial-with-python-I/" target="_blank">
-										<p id="ref-list">Suruchi Fialoke, <cite>Regression Forecasting and Predicting</cite>, suruchifialoke.com, 17 Aug. 2016. Web</p></a>
-									</li>									
-									<li><a target="_blank" href="https://www.scientificamerican.com/article/how-machine-learning-could-help-to-improve-climate-forecasts/">
-										<p id="ref-list">Nicola Jones, <cite>How Machine Learning Could Help to Improve Climate Forecasts</cite>, Scientific American, 23 Aug. 2017. Web.</p></a>
-									</li>
-									<li><a target="_blank" href="https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/">
-										<p id="ref-list">Adam McQueen, <cite>Using Machine Learning to Predict the Weather: Part 1</cite>, Stack Abuse, 14 Nov. 2017. Web.</p></a>
-									</li>									
-									<li><a target="_blank" href="https://w1.weather.gov/glossary/">
-										<p id="ref-list">NOAA, <cite>National Weather Service Glossary</cite>, 5 Jan. 2019. Web.</p></a>
-									</li>
-									<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Linear_regression&oldid=876797132">
-										<p id="ref-list">Wikipedia contributors. <cite>"Linear regression."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 4 Jan. 2019. Web. 5 Jan. 2019.</p></a>
-									</li>																		
-									<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Ordinary_least_squares&oldid=876394211">
-										<p id="ref-list">Wikipedia contributors. <cite>"Ordinary least squares."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 2 Jan. 2019. Web. 5 Jan. 2019.</p></a>
-									</li>									
-									<li><a target="_blank" href="https://en.wikipedia.org/w/index.php?title=Stepwise_regression&oldid=873228475">
-										<p id="ref-list">Wikipedia contributors. <cite>"Stepwise regression."</cite> Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 11 Dec. 2018. Web. 5 Jan. 2019.</p></a>
-									</li>
-								</ol>								
-							</div>	
-						</div>
-					</div>
-			    </div>
-			  </div>
-		   <!-- End Content Holder -->
-	 </div> 
-	 
-	<footer class="container-fluid text-center">
-	  <div class="row-fluid">
-		<div class="col-sm-6">
-		  <p>Data Masters, Inc &copy; <span id="year"></span></p>
-		</div>
-		<div class="col-sm-6">
-		  <p>Designed by <a href="https://patrol7171.github.io" class="external" target="_blank">P. Rollins</a></p>
-		</div>
-	  </div>
-	</footer>  	
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-	<!-- Bootstrap JS CDN -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	<script>
-
-		$(document).ready(function () {
-		//sidebar
-		 $('#sidebarCollapse').on('click', function () {
-			 $('#sidebar').toggleClass('active');
-		 });
-		 //copyright year
-		 $("#year").text((new Date).getFullYear());
-		});				
-	</script>
-</body>
-
-</html>
