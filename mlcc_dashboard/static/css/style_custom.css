@@ -143,6 +143,10 @@ i, span {
     )!important;
 }
 
+button .glyphicon {
+	color: #ffae19 !important;
+}
+
 
 
 
@@ -271,7 +275,7 @@ i, span {
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
+    color: #ffae19 !important;
     background: #6d7fcc;
 }
 
