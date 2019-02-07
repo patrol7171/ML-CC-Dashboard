@@ -155,7 +155,7 @@ def index():
 
 	
 	
-@app.route("/about1")
+@app.route("/projInfo/about1")
 def about1():
 	"""Render About Sub Page1"""
 	query_statement = "Select * from US_Disasters"
@@ -202,7 +202,7 @@ def about1():
 
 
 	
-@app.route("/about2")
+@app.route("projInfo/about2")
 def about2():
 	"""Render About Sub Page2"""
 	return render_template("about2.html")
