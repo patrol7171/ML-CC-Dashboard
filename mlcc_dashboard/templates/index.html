@@ -141,8 +141,7 @@
 	$(document).ready(function () {
 		//get quote info
 		 var url = "https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=myJsonMethod&?callback=?";
-		 $.getJSON(url);
-		 
+		 $.getJSON(url);	 
 		//update model forecast temp
 		$('#forecast').html(modelForecast + '<i class="wi wi-fahrenheit wi-4x"></i>');
 	});			

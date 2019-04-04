@@ -40,13 +40,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #################################################
 
 ####### FOR LOCAL USE ONLY ########:
-from APIkeys import client_id, client_secret
-CLIENT_ID = client_id
-CLIENT_SECRET = client_secret
+# from APIkeys import client_id, client_secret
+# CLIENT_ID = client_id
+# CLIENT_SECRET = client_secret
 
 ####### FOR HEROKU DEPLOYMENT ONLY ########:
-# CLIENT_ID = os.environ.get('client_id')
-# CLIENT_SECRET = os.environ.get('client_secret')
+CLIENT_ID = os.environ.get('client_id')
+CLIENT_SECRET = os.environ.get('client_secret')
 
 
 
