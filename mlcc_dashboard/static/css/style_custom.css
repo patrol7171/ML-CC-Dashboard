@@ -33,6 +33,10 @@ i, span {
     display: inline-block;
 }
 
+.h3, h3 {
+    font-size: 22px !important;
+}
+
 .col-xs-5sp,
 .col-sm-5sp,
 .col-md-5sp,

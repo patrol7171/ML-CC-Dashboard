@@ -40,20 +40,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #################################################
 
 ####### FOR LOCAL USE ONLY ########:
-# from APIkeys import client_id, client_secret
-# CLIENT_ID = client_id
-# CLIENT_SECRET = client_secret
+from APIkeys import client_id, client_secret
+CLIENT_ID = client_id
+CLIENT_SECRET = client_secret
 
 ####### FOR HEROKU DEPLOYMENT ONLY ########:
-CLIENT_ID = os.environ.get('client_id')
-CLIENT_SECRET = os.environ.get('client_secret')
+# CLIENT_ID = os.environ.get('client_id')
+# CLIENT_SECRET = os.environ.get('client_secret')
 
 
 
 #################################################
 # Database Setup
 #################################################
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///Global_Land_Temps.sqlite"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Global_Land_Temps.sqlite"
 db = SQLAlchemy(app)
 engine = db.create_engine("sqlite:///Global_Land_Temps.sqlite", echo=False)
@@ -149,13 +148,17 @@ def index():
 	for row in result.all(): 
 		temp2 = row.ForecastTemps	
 	temp2 = (round(temp2,0))
-	difference = aerisTemp - temp2
+	tempDiff = aerisTemp - temp2
+	if tempDiff < 0 or tempDiff > 18:
+		difference = 18.5
+	else:
+		difference = tempDiff
 	
 	return render_template("index.html", data=(obs_dict,dataOpt1,dataOpt2,difference))
 
 	
 	
-@app.route("/projInfo/about1")
+@app.route("/projInfo/national")
 def about1():
 	"""Render About Sub Page1"""
 	query_statement = "Select * from US_Disasters"
@@ -202,7 +205,7 @@ def about1():
 
 
 	
-@app.route("projInfo/about2")
+@app.route("/projInfo/local")
 def about2():
 	"""Render About Sub Page2"""
 	return render_template("about2.html")
@@ -220,7 +223,21 @@ def glossary():
 def references():
 	"""Render References Page"""
 	return render_template("references.html")
+	
+	
+	
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+	
+	
 
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500	
+	
+	
 
 
 def year_range (row):
