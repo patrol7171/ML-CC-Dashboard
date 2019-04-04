@@ -18,7 +18,7 @@
 	<div class="row-fluid" id="user_locale">
 	  <div class="span12 text-center" id="location">
 		<span>					
-			<h3>Charlotte, NC</h3>
+			<h3>CHARLOTTE, NC</h3>
 			<h6><i>Powered by <a href="https://www.aerisweather.com/" target="_blank"><img src="../static/img/aeris_logo.png" alt="AerisWeather"></a> - Last observation made on <span id='timestamp'></span></i></h6>				
 		</span>
 	  </div>
@@ -108,7 +108,9 @@
 				<div class="panel-heading">Actual Temp vs. Forecast Temp</div>
 					<div class="panel-body">
 						<div id="power-gauge">
-							<br>
+							<p>MODEL FORECAST FOR TODAY: &nbsp
+								<span id="forecast"></span>
+							</p>
 							<p id="avgTemp"><b>How good is our forecast model?...</b></p>
 							<!-- <svg id='svg2' viewBox="0 0 30 18" preserveAspectRatio="none" ></svg> -->
 						</div>
@@ -124,19 +126,25 @@
 {% block index_script %}
 	var allData = {{ data | tojson }};
 	console.log(allData); //TESTING
+	
 	var weatherData = allData[0];
 	var top10cData = allData[1];
 	var top10dData = allData[2];
 	var tempDifference = allData[3];
+	var modelForecast = allData[4];
 	GetWeather(weatherData);
 	pieChartTop10(top10cData,top10dData);
 	
 	var quote;
 	var author;
-
+	
 	$(document).ready(function () {
-	 var url = "https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=myJsonMethod&?callback=?";
-	 $.getJSON(url);
+		//get quote info
+		 var url = "https://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=myJsonMethod&?callback=?";
+		 $.getJSON(url);
+		 
+		//update model forecast temp
+		$('#forecast').html(modelForecast + '<i class="wi wi-fahrenheit wi-4x"></i>');
 	});			
 			
 	function myJsonMethod(response) {

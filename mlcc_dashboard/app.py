@@ -81,7 +81,7 @@ db.session.commit()
 
 
 #################################################
-# Flask Routes
+# Flask Routes/Functions
 #################################################
 @app.route("/")
 def index():
@@ -148,13 +148,13 @@ def index():
 	for row in result.all(): 
 		temp2 = row.ForecastTemps	
 	temp2 = (round(temp2,0))
-	tempDiff = aerisTemp - temp2
-	if tempDiff < 0 or tempDiff > 18:
+	tempDiff = abs(aerisTemp - temp2)
+	if tempDiff > 18: #18 is the current max on d3 gauge
 		difference = 18.5
 	else:
 		difference = tempDiff
 	
-	return render_template("index.html", data=(obs_dict,dataOpt1,dataOpt2,difference))
+	return render_template("index.html", data=(obs_dict,dataOpt1,dataOpt2,difference,temp2))
 
 	
 	
@@ -238,7 +238,6 @@ def internal_error(error):
     return render_template('500.html'), 500	
 	
 	
-
 
 def year_range (row):
     if (row['EndDate'] > 19799999) & (row['EndDate'] < 19850000):	
