@@ -312,8 +312,9 @@ var gauge = function(container, configuration) {
 			.range([0,1])
 			.domain([config.minValue, config.maxValue]);
 			
-		/* ticks = scale.ticks(config.majorTicks); */
-		ticks = [0,3,6,9,12,15,18];	
+		/* ticks = scale.ticks(config.majorTicks); */ 
+		ticks = [0,3,6,9,12,15,18];	//set ticks manually here
+		colorLabels = ['SUPER','GREAT','GOOD','FAIR','SO-SO','BAD']; //set gauge labels
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 		
 		arc = d3.arc()
@@ -358,7 +359,23 @@ var gauge = function(container, configuration) {
 				.attr('fill', function(d, i) {
 					return config.arcColorFn(d * i);
 				})
+				//setup id for gauge labels
+				.attr("id", function(d, i) { 
+					return "colorLabel_"+i; 
+				})
 				.attr('d', arc);
+				
+				//Append the color label names within the gauge arcs
+				arcs.selectAll(".colorLabel")
+				.data(colorLabels)
+				.enter().append("text")
+				.attr("class", "colorLabel")
+				.attr("x", 15) //Move the text from the start angle of the arc
+				.attr("dy", 15) //Move the text down
+				.append("textPath")
+				.attr("xlink:href",function(d,i){return "#colorLabel_"+i;})
+				.text(function(d){return d;});
+ 
 		
 		var lg = svg.append('g')
 				.attr('class', 'label')

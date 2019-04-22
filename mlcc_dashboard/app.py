@@ -259,6 +259,6 @@ def year_range (row):
 	
 	
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
 	
 	
